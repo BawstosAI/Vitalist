@@ -1,0 +1,89 @@
+# Organ panel configuration
+#
+# This file defines which biomarkers belong to each organ/system.
+# Variable names should match column names in your NHANES data.
+#
+# TODO: Update these variable names to match your actual NHANES column names.
+# The names below are typical NHANES variable names, but may vary by cycle.
+
+# Liver function panel
+liver:
+  - LBXSATSI    # Alanine aminotransferase (ALT) (U/L)
+  - LBXSASSI    # Aspartate aminotransferase (AST) (U/L)
+  - LBXSGTSI    # Gamma glutamyl transferase (GGT) (U/L)
+  - LBXSAPSI    # Alkaline phosphatase (ALP) (U/L)
+  - LBXSBU      # Blood urea nitrogen (BUN) (mg/dL)
+  - LBXSTP      # Total protein (g/dL)
+  - LBXSAL      # Albumin (g/dL)
+  - LBXSTB      # Total bilirubin (mg/dL)
+
+# Kidney function panel
+kidney:
+  - LBXSCR      # Creatinine, refrigerated serum (mg/dL)
+  - LBXSBU      # Blood urea nitrogen (BUN) (mg/dL)
+  - URXUMA      # Albumin, urine (ug/mL)
+  - URXUCR      # Creatinine, urine (mg/dL)
+  - LBXSUA      # Uric acid (mg/dL)
+
+# Cardiovascular / Metabolic panel
+cardio_metabolic:
+  - BPXSY1      # Systolic blood pressure (mmHg)
+  - BPXDI1      # Diastolic blood pressure (mmHg)
+  - LBXTC       # Total cholesterol (mg/dL)
+  - LBXTR       # Triglyceride (mg/dL)
+  - LBDHDD      # Direct HDL cholesterol (mg/dL)
+  - LBDLDL      # LDL cholesterol (mg/dL)
+  - LBXGLU      # Fasting glucose (mg/dL)
+  - LBXGH       # Glycohemoglobin (HbA1c) (%)
+  - BMXBMI      # Body Mass Index (kg/m^2)
+  - BMXWAIST    # Waist circumference (cm)
+
+# Immune system / Inflammatory markers
+immune:
+  - LBXWBCSI    # White blood cell count (1000 cells/uL)
+  - LBXLYPCT    # Lymphocyte percent (%)
+  - LBXMOPCT    # Monocyte percent (%)
+  - LBXNEPCT    # Neutrophils percent (%)
+  - LBXEOPCT    # Eosinophils percent (%)
+  - LBXBAPCT    # Basophils percent (%)
+
+# Blood / Hematological system
+hematologic:
+  - LBXRBCSI    # Red blood cell count (million cells/uL)
+  - LBXHGB      # Hemoglobin (g/dL)
+  - LBXHCT      # Hematocrit (%)
+  - LBXMCVSI    # Mean cell volume (fL)
+  - LBXMCHSI    # Mean cell hemoglobin (pg)
+  - LBXMC       # Mean cell hemoglobin concentration (g/dL)
+  - LBXRDW      # Red cell distribution width (%)
+  - LBXPLTSI    # Platelet count (1000 cells/uL)
+
+# Endocrine / Thyroid (if available)
+# endocrine:
+#   - LBXT4     # Thyroxine (T4) (ug/dL)
+#   - LBXT3     # Triiodothyronine (T3) (ng/dL)
+#   - LBXTSH    # Thyroid stimulating hormone (TSH) (uIU/mL)
+#   - LBXIN     # Insulin (uU/mL)
+
+# Global covariates (included with all organ models)
+# NOTE: RIDAGEYR is the TARGET variable, DO NOT include it as a covariate!
+global_covariates:
+  # - RIDAGEYR    # Age in years at screening - REMOVED: this is the target!
+  - RIAGENDR    # Gender (1=Male, 2=Female)
+  - RIDRETH1    # Race/Ethnicity (categorical)
+  - BMXBMI      # Body Mass Index
+  # - SMOKER    # Smoking status (if encoded)
+  # - DMDEDUC2  # Education level
+
+# Age variable (target for prediction)
+target_variable: "RIDAGEYR"
+
+# Preprocessing parameters
+preprocessing:
+  min_age: 18
+  max_age: 80
+  missing_threshold: 0.5  # Drop columns with >50% missing
+  imputation_strategy: "median"
+  outlier_removal: true
+  outlier_method: "iqr"
+  outlier_threshold: 3.0

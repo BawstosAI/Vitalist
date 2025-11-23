@@ -1,0 +1,34 @@
+# Configuration file for NHANES data paths
+#
+# This file specifies where to find NHANES data files.
+# Update the filenames to match your actual NHANES files.
+
+# Base directory containing raw NHANES files
+raw_data_dir: "data/raw"
+
+# Output directories
+interim_data_dir: "data/interim"
+processed_data_dir: "data/processed"
+
+# NHANES data files (XPT or CSV format)
+# TODO: Replace these with your actual NHANES file names
+nhanes_files:
+  demographics: "DEMO_J.xpt"         # Demographics file (contains SEQN, AGE, SEX, RACE, etc.)
+  biochemistry: "BIOPRO_J.xpt"       # Biochemistry profile (liver enzymes, etc.)
+  blood_pressure: "BPX_J.xpt"        # Blood pressure and heart rate
+  body_measures: "BMX_J.xpt"         # Body measurements (BMI, waist, etc.)
+  cholesterol: "TCHOL_J.xpt"         # Cholesterol - Total & HDL
+  glucose: "GLU_J.xpt"               # Plasma fasting glucose
+  kidney: "ALB_CR_J.xpt"             # Albumin & Creatinine - Urine
+  complete_blood_count: "CBC_J.xpt"  # Complete blood count
+  glycohemoglobin: "GHB_J.xpt"       # Glycohemoglobin (HbA1c)
+  # Add more files as needed
+
+# Output file paths
+output_files:
+  clean_data: "data/interim/nhanes_clean.parquet"
+  age_gaps: "data/processed/age_gaps.parquet"
+  organ_datasets: "data/processed/organ_datasets/"
+
+# Model storage
+models_dir: "models"

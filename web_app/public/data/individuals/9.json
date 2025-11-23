@@ -1,0 +1,48 @@
+{
+  "id": 9,
+  "age": 54.0,
+  "sex": null,
+  "n_advanced_organs": 1,
+  "organs": [
+    {
+      "name": "liver",
+      "display_name": "Liver",
+      "biological_age": 43.40961075502222,
+      "age_gap": -10.590389244977779,
+      "status": "healthy",
+      "advanced": false
+    },
+    {
+      "name": "kidney",
+      "display_name": "Kidney",
+      "biological_age": 43.51379490025319,
+      "age_gap": -10.486205099746812,
+      "status": "healthy",
+      "advanced": false
+    },
+    {
+      "name": "cardio_metabolic",
+      "display_name": "Cardio Metabolic",
+      "biological_age": 41.79103260861262,
+      "age_gap": -12.208967391387382,
+      "status": "healthy",
+      "advanced": false
+    },
+    {
+      "name": "immune",
+      "display_name": "Immune",
+      "biological_age": 54.23599346907765,
+      "age_gap": 0.2359934690776484,
+      "status": "normal",
+      "advanced": false
+    },
+    {
+      "name": "hematologic",
+      "display_name": "Hematologic",
+      "biological_age": 64.68966390963712,
+      "age_gap": 10.689663909637119,
+      "status": "advanced",
+      "advanced": true
+    }
+  ]
+}

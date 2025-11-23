@@ -1,0 +1,326 @@
+Tu es Claude Code, assistant de code expert.
+
+Je veux que tu génères, en **un seul coup**, la structure complète d’un projet de data science / machine learning autour de NHANES pour modéliser le **vieillissement non linéaire des organes**.
+
+🎯 **Objectif du projet**
+
+Construire, à partir des données NHANES (cross-sectionnelles, multi-biomarqueurs), des **“organ clocks”** :  
+pour chaque organe / système, un modèle supervisé (non linéaire) qui prédit l’âge chronologique à partir des biomarqueurs liés à cet organe.  
+
+Ensuite :
+
+- Définir pour chaque individu un **âge biologique d’organe** et un **AgeGap** = (âge biologique d’organe – âge réel).
+- Étudier le **vieillissement différentiel des organes** (certains plus vieux / plus jeunes).
+- Explorer des **profils de trajectoire** : quels organes “cassent” en premier (approche pseudo-longitudinale par tranches d’âge).
+- Utiliser clustering & UMAP **uniquement à des fins d’exploration/visualisation**, pas comme brique centrale du modèle.
+
+Le projet doit être **très explicable** :
+- pour nous (comprendre chaque étape),
+- pour un jury (qu’il entre dans le projet en 5–10 min via un notebook “narratif”).
+
+---
+
+## 🔧 Hypothèses & contraintes techniques
+
+- Langage : **Python 3**.
+- Utiliser **Jupyter notebooks** comme support principal d’analyse.
+- Le code doit être **structuré** dans un petit package Python réutilisable (`src/`), pour éviter la répétition dans les notebooks.
+- Le projet doit pouvoir tourner **offline** : ne compte pas sur des téléchargements en ligne automatiques.
+- Hypothèse : les fichiers NHANES (XPT/CSV) sont déjà présents localement dans `data/raw/`.  
+  → Tu peux prévoir un mécanisme de configuration (YAML/JSON) pour :
+  - les chemins vers les fichiers,
+  - la liste des variables NHANES à utiliser pour chaque organe.
+
+- Modèles :
+  - Baseline : régression linéaire / Elastic Net.
+  - Modèle non linéaire : Gradient Boosting (XGBoost ou LightGBM) ou, si plus simple, HistGradientBoosting Regressor de scikit-learn.
+- Explicabilité :
+  - Comparaison **baseline linéaire vs modèle non linéaire**.
+  - Importance des variables.
+  - SHAP (ou au minimum permutation importance) pour interpréter les contributions des biomarqueurs.
+
+- Visualisation : matplotlib et éventuellement plotly pour des graphes interactifs.
+
+---
+
+## 🧬 Concept métier
+
+Les données NHANES contiennent de nombreux biomarqueurs (sang, urine, examens physiques).  
+On veut les organiser par **organes / systèmes** et entraîner, pour chaque panneau d’organe :
+
+> modèle_ML(organe O) : biomarqueurs_O (+ covariables globales) → âge chronologique
+
+L’âge prédit par le modèle d’organe O pour l’individu i = **âge biologique de l’organe O**.  
+On définit ensuite :
+
+- `age_bio_O_i` = âge biologique pour organe O et individu i,
+- `age_gap_O_i = age_bio_O_i – age_chrono_i`.
+
+Ce vecteur d’AgeGaps permet de :
+- comparer les organes entre eux pour une personne,
+- analyser les profils de vieillissement dans la population,
+- explorer quels organes sont en avance/retard selon l’âge, le sexe, autres facteurs.
+
+Important : NHANES est **cross-sectionnel** → pas de suivi temporel réel.  
+Les “trajectoires” seront donc **pseudo-longitudinales**, à partir de la coupe transversale par tranches d’âge.
+
+---
+
+## 📁 Structure de projet attendue
+
+Merci de générer un projet structuré comme suit :
+
+- `README.md`  
+- `requirements.txt` ou `environment.yml`  
+- `pyproject.toml` ou au minimum `setup.cfg` simple (optionnel si ça complique)  
+- `data/`
+  - `raw/`        # fichiers NHANES bruts (non versionnés dans le repo, mais mentionnés dans README)
+  - `interim/`    # données après nettoyage / merge
+  - `processed/`  # tables finales pour modeling (features par organe, etc.)
+- `configs/`
+  - `paths.yaml`          # chemins vers fichiers NHANES
+  - `organ_panels.yaml`   # mapping organes ↔ variables NHANES
+- `notebooks/`
+  - `00_overview_and_setup.ipynb`
+  - `01_nhanes_data_preparation.ipynb`
+  - `02_feature_engineering_organs.ipynb`
+  - `03_train_organ_clocks.ipynb`
+  - `04_analyze_agegaps.ipynb`
+  - `05_trajectories_and_clustering.ipynb`
+  - `06_jury_storytelling_report.ipynb`
+- `src/organ_aging/`
+  - `__init__.py`
+  - `config.py`          # chargement YAML, gestion des chemins
+  - `data_loading.py`    # lecture des fichiers NHANES (XPT/CSV) et merge
+  - `preprocessing.py`   # nettoyage, filtrage, encodage variables
+  - `features.py`        # construction des panneaux d’organes et scaling
+  - `models.py`          # entraînement et sauvegarde des modèles d’organe
+  - `evaluation.py`      # calcul AgeGaps, métriques, comparaisons
+  - `explainability.py`  # SHAP / permutation importance, graphiques
+  - `analysis.py`        # fonctions d’analyses globales (corrélations, bins d’âge, etc.)
+  - `visualization.py`   # fonctions génériques de plotting (matplotlib/plotly)
+  - `clustering.py`      # PCA/UMAP + clustering (usage exploratoire)
+
+Tu peux ajuster légèrement les noms si nécessaire, mais garde l’esprit modulaire.
+
+---
+
+## 🧾 Détail des notebooks attendus
+
+### `00_overview_and_setup.ipynb`
+- Objectif : donner au lecteur (et au jury) une **vue d’ensemble du projet**.
+- Contenu :
+  - Introduction texte (markdown) :
+    - contexte : vieillissement différentiel des organes,
+    - limitation : NHANES cross-sectionnel,
+    - idée des organ clocks et des AgeGaps,
+    - comment on va s’y prendre en pipeline.
+  - Cellules qui :
+    - installent / importent les packages,
+    - vérifient que `configs/paths.yaml` et `configs/organ_panels.yaml` existent,
+    - affichent un schéma ASCII/markdown du pipeline global.
+
+### `01_nhanes_data_preparation.ipynb`
+- Utilise les fonctions de `src/organ_aging/data_loading.py` et `preprocessing.py`.
+- Étapes :
+  - Charger les fichiers NHANES (depuis `data/raw/`) selon `paths.yaml`.
+  - Merger les tables (clé `SEQN`) → table large.
+  - Nettoyage :
+    - filtres de base (par ex. 18–80 ans),
+    - gestion des missing values (stratégie simple mais expliquée),
+    - encodage de variables catégorielles (sexe, ethnie, tabac, etc.).
+  - Sauvegarder la table clean dans `data/interim/nhanes_clean.parquet` (par exemple).
+- Beaucoup de markdown pour **expliquer chaque étape**, avec quelques stats de base (nombre de lignes, colonnes, % de NA).
+
+### `02_feature_engineering_organs.ipynb`
+- Utilise `features.py`.
+- Étapes :
+  - Charger `organ_panels.yaml` :
+    - mapping de type :
+      ```yaml
+      liver:
+        - ALT_varname
+        - AST_varname
+        - ...
+      kidney:
+        - ...
+      cardio_metabolic:
+        - ...
+      immune:
+        - ...
+      global_covariates:
+        - SEX
+        - RACE
+        - BMI
+        - SMOKING_STATUS
+      ```
+    - Tu peux remplir ce YAML avec des **noms de variables génériques** / placeholders, et commenter que l’utilisateur doit les adapter à ses fichiers NHANES.
+  - Construire, pour chaque organe :
+    - une matrice de features `X_organe`,
+    - le vecteur cible `y = âge`.
+  - Appliquer :
+    - scaling (StandardScaler/RobustScaler),
+    - split train/validation/test (60/20/20, stratifié par décennie d’âge si possible).
+  - Sauvegarder dans `data/processed/` (par ex. un fichier par organe, ou un seul fichier avec colonnes marquées).
+
+### `03_train_organ_clocks.ipynb`
+- Utilise `models.py`, `evaluation.py`, `explainability.py`.
+- Pour chaque organe :
+  - Entraîner :
+    - baseline linéaire (LinearRegression ou ElasticNet),
+    - modèle non linéaire (XGBoost / LightGBM / HistGradientBoosting).
+  - Stocker les modèles et scalers (pickle/joblib) dans un dossier `models/organ_name/`.
+  - Calculer les métriques sur train/val/test :
+    - MAE, RMSE, R².
+  - Produire un tableau comparatif baseline vs non linéaire.
+  - **Explicabilité** :
+    - au minimum : importance des features.
+    - idéal : SHAP summary plot pour chaque organe (ou un organe exemplaire) → fonctions dans `explainability.py`.
+- Beaucoup de markdown :
+  - expliquer ce qu’est une clock d’organe,
+  - interprétation des métriques,
+  - démontrer que le modèle non linéaire capture la non-linéarité (erreur réduite).
+
+### `04_analyze_agegaps.ipynb`
+- Utilise `evaluation.py` et `analysis.py`.
+- Étapes :
+  - Charger les prédictions des modèles pour chaque organe.
+  - Calculer :
+    - `age_bio_org`,
+    - `age_gap_org` pour chaque individu.
+  - Stocker une table `age_gaps.parquet` avec colonnes : ID (SEQN), âge, organ_age / organ_gap, covariables.
+  - Analyser :
+    - distributions des AgeGaps par organe (histogrammes),
+    - stats descriptives (moyenne, variance),
+    - corrélations entre AgeGaps (heatmap).
+  - Petite analyse par sexe / autres covariables si simple.
+
+### `05_trajectories_and_clustering.ipynb`
+- Utilise `analysis.py`, `clustering.py`, `visualization.py`.
+- Important : le clustering est **exploratoire**, pas une brique modèle.
+- Étapes :
+  - Binner l’âge (par exemple : 18–30, 30–40, 40–50, etc.).
+  - Pour chaque bin d’âge :
+    - regarder la distribution des AgeGaps par organe,
+    - voir comment évolue la moyenne du gap avec l’âge.
+  - Définir “organe en avance” (ex. gap > +5 ans) → analyser les co-occurrences :
+    - combien de personnes ont foie en avance,
+    - foie + rein,
+    - cardio + immune, etc.
+  - Créer, pour chaque individu, un vecteur :
+    - `v = [gap_liver, gap_kidney, gap_cardio, gap_immune, ...]`.
+  - Appliquer PCA ou UMAP sur ces vecteurs :
+    - visualiser en 2D,
+    - colorer par âge, par organe “dominant”, etc.
+  - Optionnel : KMeans ou HDBSCAN sur cet embedding, uniquement pour :
+    - mettre des couleurs sur les points,
+    - décrire des “profils de vieillissement”.
+- Markdown :
+  - expliquer que ce n’est pas un vrai modèle longitudinal,
+  - bien poser les limites et la nature pseudo-longitudinale.
+
+### `06_jury_storytelling_report.ipynb`
+- Ce notebook est **pédagogique** et “prêt pour le pitch”.
+- Contenu :
+  - Rappel du problème en 1–2 pages de markdown + quelques schémas simples.
+  - Résumé de la méthode :
+    - organ clocks,
+    - AgeGaps,
+    - pseudo-trajectoires.
+  - Quelques figures clés :
+    - un exemple de SHAP plot,
+    - un heatmap des AgeGaps pour quelques individus,
+    - l’embedding 2D (PCA/UMAP) coloré par profil.
+  - Conclusion :
+    - ce que le projet montre,
+    - limites,
+    - pistes futures.
+
+Le ton doit être **clair, didactique**, en anglais (code et markdown)
+
+## 🧠 Implémentation des modules Python
+
+Merci de générer le **contenu des fichiers** dans `src/organ_aging/` avec :
+
+- Des **docstrings** clairs.
+- Des **types hints** (typing) quand c’est pertinent.
+- Des fonctions simples, testables :
+
+Par exemple :
+
+- `config.py`
+  - fonction `load_paths_config()` → charge `paths.yaml`.
+  - fonction `load_organ_panels_config()` → charge `organ_panels.yaml`.
+
+- `data_loading.py`
+  - fonction `load_nhanes_tables(paths_config: dict) -> Dict[str, pd.DataFrame]` :
+    - lit les fichiers XPT/CSV dans `data/raw/`.
+  - fonction `merge_nhanes_tables(tables_dict: dict) -> pd.DataFrame`.
+
+- `preprocessing.py`
+  - fonctions pour filtrer par âge, gérer les NA, encoder les catégories.
+
+- `features.py`
+  - fonction `build_organ_datasets(df: pd.DataFrame, organ_panels: dict, global_covars: List[str]) -> Dict[str, Tuple[pd.DataFrame, pd.Series]]`.
+  - fonction de split train/val/test.
+
+- `models.py`
+  - fonction `train_organ_models(organ_datasets: ...)` qui retourne et sauvegarde les modèles par organe.
+  - choix clair des modèles (linéaire + non linéaire) pour chaque organe.
+
+- `evaluation.py`
+  - fonction `evaluate_models(...)` qui calcule MAE/RMSE/R².
+  - fonction `compute_age_bio_and_gaps(...)`.
+
+- `explainability.py`
+  - fonctions pour calculer et tracer :
+    - feature importances,
+    - SHAP summary (si bibliothèque SHAP dispo),
+    - avec gestion du cas où SHAP n’est pas installé (instructions à l’utilisateur dans les docstrings).
+
+- `analysis.py`
+  - fonctions pour :
+    - binning d’âge,
+    - co-occurrence d’organes en avance,
+    - stats descriptives des AgeGaps.
+
+- `clustering.py`
+  - fonctions pour :
+    - PCA / UMAP des vecteurs de gaps,
+    - clustering (optionnel).
+
+- `visualization.py`
+  - fonctions de plotting génériques (histos, scatter 2D, heatmaps).
+
+---
+
+## 📚 README.md
+
+Génère aussi un `README.md` bien structuré qui :
+
+1. Résume le projet en quelques paragraphes (en français ou anglais, mais clair).
+2. Explique :
+   - le concept de clock d’organe et d’AgeGap,
+   - la limitation cross-sectionnelle de NHANES,
+   - l’usage des notebooks.
+3. Donne des instructions pour :
+   - installer l’environnement,
+   - placer les fichiers NHANES dans `data/raw/`,
+   - configurer `paths.yaml` et `organ_panels.yaml`,
+   - exécuter les notebooks dans l’ordre.
+4. Met en avant le notebook `06_jury_storytelling_report.ipynb` comme point d’entrée pour le jury.
+
+---
+
+## ⚠️ Important
+
+- Tu peux utiliser des **noms de variables NHANES génériques ou typiques** (ALT, AST, etc.) dans `organ_panels.yaml`, mais indique clairement dans les commentaires que l’utilisateur devra faire correspondre ces noms aux colonnes exactes de ses fichiers.
+- Priorité : **clarté, structure, explicabilité** > optimisation de performance.
+- Le code doit être lisible, commenté, et éviter la magie noire.
+
+---
+
+👉 À partir de tout ce contexte, génère :
+1. L’arborescence du projet.
+2. Le contenu des principaux fichiers (`README.md`, `requirements.txt`, modules dans `src/organ_aging/`, squelette des notebooks avec les cellules Markdown de structure + quelques exemples de cellules de code).
+3. Des commentaires TODO là où l’utilisateur doit adapter manuellement (par ex. les vrais noms de colonnes NHANES).

@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(jupyter nbconvert:*)",
+      "Bash(python -m pip:*)",
+      "Bash(dir:*)",
+      "Bash(nul)",
+      "mcp__ide__executeCode",
+      "Bash(python:*)",
+      "Bash(del \"C:\\Users\\bastien\\Documents\\TAF\\Hackathon\\Vitalist\\test_notebook_fix.py\")",
+      "Bash(del \"C:\\Users\\bastien\\Documents\\TAF\\Hackathon\\Vitalist\\test_permutation_fix.py\")",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(del:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
