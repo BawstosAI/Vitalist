@@ -29,11 +29,11 @@ const Dashboard: React.FC<PageProps> = ({ data }) => {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Executive Summary" subtitle={`Vitalist analyzes differential organ aging using machine learning models trained on NHANES data (n=${individuals.length}).`} />
+      <SectionHeader title="Executive Summary" subtitle={`Vitalist analyzes differential organ aging using machine learning models trained on NHANES data. The test dataset contains ${individuals.length} persons.`} />
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         {[
-          { label: "Individuals Analyzed", val: individuals.length.toString(), sub: "NHANES Dataset" },
+          { label: "Individuals Analyzed", val: individuals.length.toString(), sub: "Test Dataset" },
           { label: "Systems Modeled", val: metrics.length.toString(), sub: "Liver, Kidney, Cardio, Immune, Heme" },
           { label: "Avg Model R²", val: avgR2.toFixed(2), sub: "Across all organ clocks" },
           { label: "Multi-Organ Acceleration", val: `${pctMulti}%`, sub: ">1 organ with gap > 5y" },
@@ -53,9 +53,9 @@ const Dashboard: React.FC<PageProps> = ({ data }) => {
           <ul className="space-y-4">
             {[
               "Biological age deviates significantly from chronological age across all 5 systems.",
-              "Cardio-metabolic and kidney aging often co-occur (r = 0.58).",
-              "Non-linear models (Gradient Boosting) outperform linear baselines by ~20%.",
-              "Distinct aging phenotypes were identified, clustering into 4 main risk groups."
+              "Organ systems aging often co-occur.",
+              "Non-linear models (Gradient Boosting) not always outperform linear baselines.",
+              "Distinct aging phenotypes were identified, clustering into 3 main groups."
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-slate-700 text-sm">
                 <span className="bg-slate-100 text-slate-500 font-mono text-xs px-1.5 py-0.5 rounded mt-0.5">{i+1}</span>
@@ -193,10 +193,9 @@ const Analysis: React.FC<PageProps> = ({ data }) => {
 const Phenotypes: React.FC<PageProps> = ({ data }) => {
     const { individuals, clusters } = data;
 
-    // Cluster colors (matching K-means cluster IDs: 0, 1, 2, 3)
+    // Cluster colors (matching K-means cluster IDs: 1, 2, 3)
     const getClusterColor = (id: number) => {
         const colors: Record<number, string> = {
-            0: '#8b5cf6',  // violet for Healthy Elderly
             1: '#ef4444',  // red for Accelerated Young
             2: '#f59e0b',  // amber for Moderate Acceleration
             3: '#10b981'   // emerald for Balanced Seniors
@@ -206,7 +205,7 @@ const Phenotypes: React.FC<PageProps> = ({ data }) => {
 
     return (
         <div className="space-y-6">
-          <SectionHeader title="Aging Phenotypes" subtitle="K-means clustering (k=4) reveals distinct biological aging patterns from multi-organ analysis." />
+          <SectionHeader title="Aging Phenotypes" subtitle="K-means clustering (k=3) reveals distinct biological aging patterns from multi-organ analysis." />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {clusters.map(c => (
@@ -266,7 +265,7 @@ const Phenotypes: React.FC<PageProps> = ({ data }) => {
                                 return null;
                             }}
                         />
-                        {[0, 1, 2, 3].map(clusterId => (
+                        {[1, 2, 3].map(clusterId => (
                             <Scatter
                                 key={clusterId}
                                 name={clusters.find(c => c.id === clusterId)?.name || `Cluster ${clusterId}`}
