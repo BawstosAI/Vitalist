@@ -1,0 +1,80 @@
+{
+  "liver": {
+    "n_train": 1590,
+    "n_val": 531,
+    "n_test": 531,
+    "n_features": 9,
+    "features": [
+      "LBXSATSI",
+      "LBXSASSI",
+      "LBXSGTSI",
+      "LBXSAPSI",
+      "LBXSBU",
+      "LBXSTP",
+      "LBXSAL",
+      "LBXSTB",
+      "BMXBMI"
+    ]
+  },
+  "kidney": {
+    "n_train": 1590,
+    "n_val": 531,
+    "n_test": 531,
+    "n_features": 6,
+    "features": [
+      "LBXSCR",
+      "LBXSBU",
+      "URXUMA",
+      "URXUCR",
+      "LBXSUA",
+      "BMXBMI"
+    ]
+  },
+  "cardio_metabolic": {
+    "n_train": 1590,
+    "n_val": 531,
+    "n_test": 531,
+    "n_features": 7,
+    "features": [
+      "BPXSY1",
+      "BPXDI1",
+      "LBXTC",
+      "LBXGLU",
+      "LBXGH",
+      "BMXBMI",
+      "BMXWAIST"
+    ]
+  },
+  "immune": {
+    "n_train": 1590,
+    "n_val": 531,
+    "n_test": 531,
+    "n_features": 7,
+    "features": [
+      "LBXWBCSI",
+      "LBXLYPCT",
+      "LBXMOPCT",
+      "LBXNEPCT",
+      "LBXEOPCT",
+      "LBXBAPCT",
+      "BMXBMI"
+    ]
+  },
+  "hematologic": {
+    "n_train": 1590,
+    "n_val": 531,
+    "n_test": 531,
+    "n_features": 9,
+    "features": [
+      "LBXRBCSI",
+      "LBXHGB",
+      "LBXHCT",
+      "LBXMCVSI",
+      "LBXMCHSI",
+      "LBXMC",
+      "LBXRDW",
+      "LBXPLTSI",
+      "BMXBMI"
+    ]
+  }
+}

@@ -72,16 +72,6 @@ Thumbs.db
 # Project-specific
 # ================
 
-# Data files (too large for git)
-data/raw/*
-data/interim/*
-data/processed/*
-
-# Keep directory structure but ignore contents
-!data/raw/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-
 # Trained models (can be large)
 models/*
 !models/.gitkeep
@@ -103,15 +93,3 @@ figures/
 # SAS files (if used)
 *.xpt
 *.sas7bdat
-
-# Large data files
-*.parquet
-*.csv
-*.tsv
-*.xlsx
-*.xls
-*.pkl
-*.pickle
-*.joblib
-*.h5
-*.hdf5
