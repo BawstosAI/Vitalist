@@ -520,7 +520,7 @@ export default function App() {
         
         {/* Footer */}
         <footer className="border-t border-slate-200 bg-white py-6 px-6 md:px-12 text-center text-xs text-slate-400">
-            Vitalist Project • NHANES 2017-2020 Data • Generated via Static Export
+            Vitalist Project • NHANES 2017-2018 Data • Contributors : Blanche | Lucie | Bastien
         </footer>
       </main>
     </div>
