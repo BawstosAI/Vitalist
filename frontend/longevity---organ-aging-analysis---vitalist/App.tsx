@@ -265,7 +265,7 @@ const Phenotypes: React.FC<PageProps> = ({ data }) => {
                                 return null;
                             }}
                         />
-                        {[0, 1, 2, 3].map(clusterId => (
+                        {[1, 2, 3].map(clusterId => (
                             <Scatter
                                 key={clusterId}
                                 name={clusters.find(c => c.id === clusterId)?.name || `Cluster ${clusterId}`}

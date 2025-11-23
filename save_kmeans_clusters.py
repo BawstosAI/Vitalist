@@ -34,20 +34,20 @@ print(f"> Found {len(gap_columns)} organ gap columns")
 X_gaps = age_gaps_df[gap_columns].dropna()
 print(f"> {len(X_gaps)} individuals for clustering (after removing NaN)")
 
-# Perform K-means clustering with k=4
-print("\n> Running K-means clustering (k=4)...")
+# Perform K-means clustering with k=3
+print("\n> Running K-means clustering (k=3)...")
 cluster_labels, kmeans_model = clustering.perform_clustering(
     X_gaps.values,
     method='kmeans',
-    n_clusters=4
+    n_clusters=3
 )
 
 print(f"> K-means clustering complete")
 print(f"  Inertia: {kmeans_model.inertia_:.2f}")
 
-# Add cluster labels to full dataset
+# Add cluster labels to full dataset (remap 0,1,2 to 1,2,3)
 age_gaps_df['cluster_kmeans'] = -1  # Default for individuals not clustered
-age_gaps_df.loc[X_gaps.index, 'cluster_kmeans'] = cluster_labels
+age_gaps_df.loc[X_gaps.index, 'cluster_kmeans'] = cluster_labels + 1  # +1 to get clusters 1,2,3
 
 # Save back to parquet
 output_path = project_root / "data" / "processed" / "age_gaps.parquet"
