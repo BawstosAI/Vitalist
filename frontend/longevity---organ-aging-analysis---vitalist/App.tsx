@@ -96,7 +96,7 @@ const Performance: React.FC<PageProps> = ({ data }) => {
         <div className="lg:col-span-2">
           <Card title="Mean Absolute Error (MAE) Comparison">
             <PerformanceChart data={data.metrics} />
-            <p className="text-xs text-slate-400 mt-4 text-center italic">Lower MAE indicates better prediction of chronological age in healthy population.</p>
+            <p className="text-xs text-slate-400 mt-4 text-center italic">A mean offset (e.g., 10 years) can be interpreted in two ways: either the clock imperfectly reflects the organ’s expected alignment with chronological age, or—conversely—it accurately captures that this organ tends to age about 10 years ahead of (or behind) the individual.</p>
           </Card>
         </div>
         <div>
@@ -114,7 +114,9 @@ const Performance: React.FC<PageProps> = ({ data }) => {
                   {data.metrics.map((m) => (
                     <tr key={m.organ} className="border-b border-slate-100 hover:bg-slate-50">
                       <td className="px-3 py-2 font-medium">{m.organ}</td>
-                      <td className="px-3 py-2 text-right text-emerald-600">+{m.improvement_pct.toFixed(1)}%</td>
+                      <td className={`px-3 py-2 text-right ${m.improvement_pct >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                        {m.improvement_pct >= 0 ? '+' : ''}{m.improvement_pct.toFixed(1)}%
+                      </td>
                       <td className="px-3 py-2 text-right font-mono text-xs">{m.r2.toFixed(2)}</td>
                     </tr>
                   ))}
