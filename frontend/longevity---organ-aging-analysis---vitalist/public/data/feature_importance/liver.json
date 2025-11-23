@@ -1,0 +1,30 @@
+{
+  "organ": "liver",
+  "display_name": "Liver",
+  "model": "HistGradientBoosting",
+  "features": [
+    {
+      "name": "LBXSASSI",
+      "display_name": "AST (Aspartate Aminotransferase)",
+      "importance": 0.25,
+      "description": "Marker of liver cell damage",
+      "direction": "Higher values \u2192 older predicted age"
+    },
+    {
+      "name": "LBXSAL",
+      "display_name": "Albumin",
+      "importance": 0.18,
+      "description": "Reflects liver synthetic function",
+      "direction": "Lower values \u2192 older predicted age"
+    },
+    {
+      "name": "LBXSGTSI",
+      "display_name": "GGT (Gamma-Glutamyl Transferase)",
+      "importance": 0.15,
+      "description": "Elevated in liver disease",
+      "direction": "Higher values \u2192 older predicted age"
+    }
+  ],
+  "note": "Feature importance values are illustrative. Run SHAP analysis for actual values.",
+  "date_generated": "2025-11-23T12:17:19.490863"
+}

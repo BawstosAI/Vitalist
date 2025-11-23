@@ -3,7 +3,7 @@
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 9,
+    "n_features": 10,
     "features": [
       "LBXSATSI",
       "LBXSASSI",
@@ -13,6 +13,7 @@
       "LBXSTP",
       "LBXSAL",
       "LBXSTB",
+      "RIAGENDR_2.0",
       "BMXBMI"
     ]
   },
@@ -20,13 +21,14 @@
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 6,
+    "n_features": 7,
     "features": [
       "LBXSCR",
       "LBXSBU",
       "URXUMA",
       "URXUCR",
       "LBXSUA",
+      "RIAGENDR_2.0",
       "BMXBMI"
     ]
   },
@@ -34,7 +36,7 @@
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 7,
+    "n_features": 8,
     "features": [
       "BPXSY1",
       "BPXDI1",
@@ -42,14 +44,15 @@
       "LBXGLU",
       "LBXGH",
       "BMXBMI",
-      "BMXWAIST"
+      "BMXWAIST",
+      "RIAGENDR_2.0"
     ]
   },
   "immune": {
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 7,
+    "n_features": 8,
     "features": [
       "LBXWBCSI",
       "LBXLYPCT",
@@ -57,6 +60,7 @@
       "LBXNEPCT",
       "LBXEOPCT",
       "LBXBAPCT",
+      "RIAGENDR_2.0",
       "BMXBMI"
     ]
   },
@@ -64,7 +68,7 @@
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 9,
+    "n_features": 10,
     "features": [
       "LBXRBCSI",
       "LBXHGB",
@@ -74,6 +78,7 @@
       "LBXMC",
       "LBXRDW",
       "LBXPLTSI",
+      "RIAGENDR_2.0",
       "BMXBMI"
     ]
   }

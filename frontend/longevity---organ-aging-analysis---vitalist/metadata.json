@@ -1,0 +1,5 @@
+{
+  "name": "Longevity - Organ Aging Analysis - Vitalist",
+  "description": "Scientific dashboard for analyzing differential organ aging using NHANES data. Visualizes Organ Clocks, Biological Age, and Age Gaps.",
+  "requestFramePermissions": []
+}

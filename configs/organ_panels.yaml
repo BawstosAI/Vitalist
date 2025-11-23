@@ -67,10 +67,10 @@ hematologic:
 
 # Global covariates (included with all organ models)
 # NOTE: RIDAGEYR is the TARGET variable, DO NOT include it as a covariate!
+# NOTE: After one-hot encoding, categorical vars get renamed (e.g., RIAGENDR -> RIAGENDR_2.0)
 global_covariates:
   # - RIDAGEYR    # Age in years at screening - REMOVED: this is the target!
-  - RIAGENDR    # Gender (1=Male, 2=Female)
-  - RIDRETH1    # Race/Ethnicity (categorical)
+  - RIAGENDR_2.0    # Gender (0=Male, 1=Female) - after one-hot encoding
   - BMXBMI      # Body Mass Index
   # - SMOKER    # Smoking status (if encoded)
   # - DMDEDUC2  # Education level

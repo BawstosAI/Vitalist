@@ -13,7 +13,18 @@
       "Bash(git remote add:*)",
       "Bash(git add:*)",
       "Bash(del:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm --version)",
+      "Bash(npm install)",
+      "Bash(more:*)",
+      "Bash(powershell -Command \"Get-Content age_gaps.json | Select-Object -First 50\")",
+      "Bash(powershell -Command \"Get-Content ''frontend\\longevity---organ-aging-analysis---vitalist\\public\\data\\age_gaps.json'' | Select-Object -First 40\")",
+      "Bash(powershell -Command \"Get-Content ''frontend\\longevity---organ-aging-analysis---vitalist\\public\\data\\metrics_summary.json''\")",
+      "Bash(npm run dev:*)",
+      "Bash(timeout /t 5)",
+      "Bash(ping:*)"
     ],
     "deny": [],
     "ask": []

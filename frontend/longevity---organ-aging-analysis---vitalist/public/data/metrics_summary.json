@@ -1,0 +1,37 @@
+[
+  {
+    "organ": "Liver",
+    "mae_linear": 13.82,
+    "mae_nonlinear": 12.56,
+    "improvement_pct": 9.1,
+    "r2": 0.32
+  },
+  {
+    "organ": "Kidney",
+    "mae_linear": 14.35,
+    "mae_nonlinear": 13.56,
+    "improvement_pct": 5.5,
+    "r2": 0.2
+  },
+  {
+    "organ": "Cardio-Metabolic",
+    "mae_linear": 13.04,
+    "mae_nonlinear": 10.84,
+    "improvement_pct": 16.8,
+    "r2": 0.44
+  },
+  {
+    "organ": "Immune",
+    "mae_linear": 15.48,
+    "mae_nonlinear": 15.27,
+    "improvement_pct": 1.4,
+    "r2": 0.06
+  },
+  {
+    "organ": "Hematologic",
+    "mae_linear": 14.78,
+    "mae_nonlinear": 14.96,
+    "improvement_pct": -1.3,
+    "r2": 0.08
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Healthy Agers",
+    "percentage": 46.0,
+    "description": "Consistent decelerated aging across all systems."
+  },
+  {
+    "id": 2,
+    "name": "Cardio-Metabolic Risk",
+    "percentage": 7.0,
+    "description": "High acceleration in metabolic and liver markers."
+  },
+  {
+    "id": 3,
+    "name": "Immune-Hematologic",
+    "percentage": 10.0,
+    "description": "Dysregulation in immune cell counts and anemia markers."
+  },
+  {
+    "id": 4,
+    "name": "Uniform Accelerated",
+    "percentage": 37.0,
+    "description": "Systemic accelerated aging across >3 organs."
+  }
+]

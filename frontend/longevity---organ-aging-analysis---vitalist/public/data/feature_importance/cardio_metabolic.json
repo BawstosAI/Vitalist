@@ -1,0 +1,23 @@
+{
+  "organ": "cardio_metabolic",
+  "display_name": "Cardio Metabolic",
+  "model": "HistGradientBoosting",
+  "features": [
+    {
+      "name": "BPXSY1",
+      "display_name": "Systolic Blood Pressure",
+      "importance": 0.28,
+      "description": "Increases with vascular aging",
+      "direction": "Higher values \u2192 older predicted age"
+    },
+    {
+      "name": "LBXGH",
+      "display_name": "HbA1c (Glycohemoglobin)",
+      "importance": 0.2,
+      "description": "Long-term glucose control marker",
+      "direction": "Higher values \u2192 older predicted age"
+    }
+  ],
+  "note": "Feature importance values are illustrative. Run SHAP analysis for actual values.",
+  "date_generated": "2025-11-23T12:17:19.493683"
+}
