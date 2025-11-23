@@ -227,9 +227,9 @@ const Phenotypes: React.FC<PageProps> = ({ data }) => {
           </div>
 
           <Card title="Cluster Distribution: Age vs Mean Organ Gap">
-              <div className="h-[400px] w-full">
+              <div className="h-[480px] w-full">
                  <ResponsiveContainer width="100%" height="100%">
-                    <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 60 }}>
+                    <ScatterChart margin={{ top: 20, right: 20, bottom: 70, left: 60 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                         <XAxis
                             type="number"
@@ -265,7 +265,7 @@ const Phenotypes: React.FC<PageProps> = ({ data }) => {
                                 return null;
                             }}
                         />
-                        {[1, 2, 3].map(clusterId => (
+                        {[0, 1, 2, 3].map(clusterId => (
                             <Scatter
                                 key={clusterId}
                                 name={clusters.find(c => c.id === clusterId)?.name || `Cluster ${clusterId}`}
@@ -280,7 +280,11 @@ const Phenotypes: React.FC<PageProps> = ({ data }) => {
                                 fillOpacity={0.6}
                             />
                         ))}
-                        <Legend wrapperStyle={{ paddingTop: '10px' }} iconType="circle" />
+                        <Legend
+                            wrapperStyle={{ paddingTop: '20px' }}
+                            iconType="circle"
+                            verticalAlign="bottom"
+                        />
                     </ScatterChart>
                  </ResponsiveContainer>
               </div>
