@@ -85,7 +85,3 @@ temp/
 results/
 outputs/
 figures/
-
-# SAS files (if used)
-*.xpt
-*.sas7bdat
