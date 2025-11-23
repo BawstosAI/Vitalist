@@ -193,46 +193,102 @@ const Analysis: React.FC<PageProps> = ({ data }) => {
 const Phenotypes: React.FC<PageProps> = ({ data }) => {
     const { individuals, clusters } = data;
 
+    // Cluster colors (matching K-means cluster IDs: 0, 1, 2, 3)
+    const getClusterColor = (id: number) => {
+        const colors: Record<number, string> = {
+            0: '#8b5cf6',  // violet for Healthy Elderly
+            1: '#ef4444',  // red for Accelerated Young
+            2: '#f59e0b',  // amber for Moderate Acceleration
+            3: '#10b981'   // emerald for Balanced Seniors
+        };
+        return colors[id] || '#94a3b8';
+    };
+
     return (
         <div className="space-y-6">
-          <SectionHeader title="Aging Phenotypes" subtitle="Unsupervised clustering (K-Means) reveals distinct biological aging patterns." />
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <SectionHeader title="Aging Phenotypes" subtitle="K-means clustering (k=4) reveals distinct biological aging patterns from multi-organ analysis." />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {clusters.map(c => (
                 <Card key={c.id} className="relative overflow-hidden">
-                    <div className={`absolute top-0 left-0 w-1 h-full ${
-                        c.id === 1 ? 'bg-emerald-500' : 
-                        c.id === 2 ? 'bg-amber-500' : 
-                        c.id === 3 ? 'bg-purple-500' : 'bg-rose-500'
-                    }`}></div>
+                    <div className={`absolute top-0 left-0 w-1 h-full`} style={{ backgroundColor: getClusterColor(c.id) }}></div>
                     <div className="pl-2">
                         <div className="flex justify-between items-start mb-2">
                             <h3 className="font-bold text-slate-800">{c.name}</h3>
                             <span className="text-xs font-mono bg-slate-100 px-2 py-1 rounded text-slate-600">{c.percentage}%</span>
                         </div>
                         <p className="text-sm text-slate-500 leading-snug">{c.description}</p>
+                        <div className="mt-3 flex items-center gap-2">
+                            <span className="text-xs text-slate-400">Cluster {c.id}</span>
+                            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: getClusterColor(c.id) }}></span>
+                        </div>
                     </div>
                 </Card>
             ))}
           </div>
 
-          <Card title="Cluster Visualization (UMAP Projection)">
-              <div className="h-[400px] w-full flex items-center justify-center bg-slate-50 border border-slate-100 rounded-inner">
+          <Card title="Cluster Distribution: Age vs Mean Organ Gap">
+              <div className="h-[400px] w-full">
                  <ResponsiveContainer width="100%" height="100%">
-                    <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis type="number" dataKey="age" name="X" hide />
-                        <YAxis type="number" dataKey="liver_age_gap" name="Y" hide />
-                        <RechartsTooltip cursor={{ strokeDasharray: '3 3' }} content={() => null} />
-                        <Scatter name="Cluster 1" data={individuals.filter(i => i.cluster === 1).slice(0,50)} fill="#10b981" />
-                        <Scatter name="Cluster 2" data={individuals.filter(i => i.cluster === 2).slice(0,50)} fill="#f59e0b" />
-                        <Scatter name="Cluster 3" data={individuals.filter(i => i.cluster === 3).slice(0,50)} fill="#a855f7" />
-                        <Scatter name="Cluster 4" data={individuals.filter(i => i.cluster === 4).slice(0,50)} fill="#e11d48" />
-                        <Legend />
+                    <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 60 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis
+                            type="number"
+                            dataKey="age"
+                            name="Age"
+                            label={{ value: 'Chronological Age (years)', position: 'bottom', offset: 20, fontSize: 12, fill: '#64748b' }}
+                            stroke="#94a3b8"
+                            fontSize={11}
+                            domain={[15, 85]}
+                        />
+                        <YAxis
+                            type="number"
+                            dataKey="meanGap"
+                            name="Mean Gap"
+                            label={{ value: 'Mean Age Gap (years)', angle: -90, position: 'insideLeft', offset: -40, fontSize: 12, fill: '#64748b' }}
+                            stroke="#94a3b8"
+                            fontSize={11}
+                            domain={[-30, 30]}
+                        />
+                        <RechartsTooltip
+                            cursor={{ strokeDasharray: '3 3' }}
+                            content={({active, payload}) => {
+                                if(active && payload && payload.length) {
+                                    const p = payload[0].payload;
+                                    const cluster = clusters.find(c => c.id === p.cluster);
+                                    return <div className="bg-white border border-slate-200 p-3 text-xs shadow-lg rounded">
+                                        <div className="font-bold text-slate-700 mb-1">{cluster?.name || `Cluster ${p.cluster}`}</div>
+                                        <div>Age: {p.age} years</div>
+                                        <div>Mean Gap: {p.meanGap.toFixed(1)} years</div>
+                                        <div className="text-slate-400 mt-1">ID: {p.seqn}</div>
+                                    </div>
+                                }
+                                return null;
+                            }}
+                        />
+                        {[0, 1, 2, 3].map(clusterId => (
+                            <Scatter
+                                key={clusterId}
+                                name={clusters.find(c => c.id === clusterId)?.name || `Cluster ${clusterId}`}
+                                data={individuals
+                                    .filter(i => i.cluster === clusterId)
+                                    .map(i => ({
+                                        ...i,
+                                        meanGap: (i.liver_age_gap + i.kidney_age_gap + i.cardio_age_gap + i.immune_age_gap + i.heme_age_gap) / 5
+                                    }))
+                                }
+                                fill={getClusterColor(clusterId)}
+                                fillOpacity={0.6}
+                            />
+                        ))}
+                        <Legend wrapperStyle={{ paddingTop: '10px' }} iconType="circle" />
                     </ScatterChart>
                  </ResponsiveContainer>
               </div>
-              <p className="text-xs text-slate-400 mt-2 text-center">2D Projection of 5-dimensional organ gap vector space.</p>
+              <p className="text-xs text-slate-400 mt-3 text-center">
+                  Visualization of K-means clustering results. Each point represents an individual, colored by their aging phenotype.
+                  Mean gap is the average biological age deviation across all 5 organ systems.
+              </p>
           </Card>
         </div>
     );
