@@ -13,7 +13,7 @@
       "LBXSTP",
       "LBXSAL",
       "LBXSTB",
-      "RIAGENDR_2.0",
+      "AST_ALT_Ratio",
       "BMXBMI"
     ]
   },
@@ -21,14 +21,15 @@
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 7,
+    "n_features": 8,
     "features": [
       "LBXSCR",
       "LBXSBU",
       "URXUMA",
       "URXUCR",
       "LBXSUA",
-      "RIAGENDR_2.0",
+      "ACR",
+      "BUN_Cr_Ratio",
       "BMXBMI"
     ]
   },
@@ -36,7 +37,7 @@
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 8,
+    "n_features": 7,
     "features": [
       "BPXSY1",
       "BPXDI1",
@@ -44,15 +45,14 @@
       "LBXGLU",
       "LBXGH",
       "BMXBMI",
-      "BMXWAIST",
-      "RIAGENDR_2.0"
+      "BMXWAIST"
     ]
   },
   "immune": {
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 8,
+    "n_features": 10,
     "features": [
       "LBXWBCSI",
       "LBXLYPCT",
@@ -60,7 +60,9 @@
       "LBXNEPCT",
       "LBXEOPCT",
       "LBXBAPCT",
-      "RIAGENDR_2.0",
+      "NLR",
+      "Abs_Lymphocyte_Count",
+      "Abs_Neutrophil_Count",
       "BMXBMI"
     ]
   },
@@ -68,7 +70,7 @@
     "n_train": 1590,
     "n_val": 531,
     "n_test": 531,
-    "n_features": 10,
+    "n_features": 9,
     "features": [
       "LBXRBCSI",
       "LBXHGB",
@@ -78,7 +80,6 @@
       "LBXMC",
       "LBXRDW",
       "LBXPLTSI",
-      "RIAGENDR_2.0",
       "BMXBMI"
     ]
   }

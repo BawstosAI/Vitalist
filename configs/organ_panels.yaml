@@ -16,6 +16,8 @@ liver:
   - LBXSTP      # Total protein (g/dL)
   - LBXSAL      # Albumin (g/dL)
   - LBXSTB      # Total bilirubin (mg/dL)
+  # Engineered features
+  - AST_ALT_Ratio  # De Ritis ratio (AST/ALT)
 
 # Kidney function panel
 kidney:
@@ -24,6 +26,10 @@ kidney:
   - URXUMA      # Albumin, urine (ug/mL)
   - URXUCR      # Creatinine, urine (mg/dL)
   - LBXSUA      # Uric acid (mg/dL)
+  # Engineered features
+  - eGFR            # Estimated Glomerular Filtration Rate
+  - ACR             # Albumin-to-Creatinine Ratio
+  - BUN_Cr_Ratio    # BUN/Creatinine Ratio
 
 # Cardiovascular / Metabolic panel
 cardio_metabolic:
@@ -37,6 +43,10 @@ cardio_metabolic:
   - LBXGH       # Glycohemoglobin (HbA1c) (%)
   - BMXBMI      # Body Mass Index (kg/m^2)
   - BMXWAIST    # Waist circumference (cm)
+  # Engineered features
+  - Non_HDL            # Non-HDL Cholesterol (TC - HDL)
+  - TC_HDL_Ratio       # Total Cholesterol/HDL Ratio
+  - TG_HDL_Ratio       # Triglyceride/HDL Ratio
 
 # Immune system / Inflammatory markers
 immune:
@@ -46,6 +56,10 @@ immune:
   - LBXNEPCT    # Neutrophils percent (%)
   - LBXEOPCT    # Eosinophils percent (%)
   - LBXBAPCT    # Basophils percent (%)
+  # Engineered features
+  - NLR                    # Neutrophil-to-Lymphocyte Ratio
+  - Abs_Lymphocyte_Count   # Absolute Lymphocyte Count
+  - Abs_Neutrophil_Count   # Absolute Neutrophil Count
 
 # Blood / Hematological system
 hematologic:

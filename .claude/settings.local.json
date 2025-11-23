@@ -26,7 +26,12 @@
       "Bash(timeout /t 5)",
       "Bash(ping:*)",
       "Bash(verification_results.txt)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git merge:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
