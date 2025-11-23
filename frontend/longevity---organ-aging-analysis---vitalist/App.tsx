@@ -199,8 +199,8 @@ const Phenotypes: React.FC<PageProps> = ({ data }) => {
     const getClusterColor = (id: number) => {
         const colors: Record<number, string> = {
             1: '#ef4444',  // red for Accelerated Young
-            2: '#f59e0b',  // amber for Moderate Acceleration
-            3: '#10b981'   // emerald for Balanced Seniors
+            2: '#10b981',  // emerald for Balanced Seniors
+            3: '#f59e0b'   // amber for Moderate Acceleration
         };
         return colors[id] || '#94a3b8';
     };

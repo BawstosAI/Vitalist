@@ -3,18 +3,18 @@
     "id": 1,
     "name": "Accelerated Young",
     "percentage": 28.0,
-    "description": "Young individuals (20-30 yrs) showing premature aging across multiple organs. Requires early intervention."
+    "description": "Young individuals (20-30 yrs) showing premature multi-organ aging (+18 years average gap). Requires early intervention."
   },
   {
     "id": 2,
-    "name": "Moderate Acceleration",
+    "name": "Balanced Seniors",
     "percentage": 39.0,
-    "description": "Middle-aged individuals (40-50 yrs) with moderate accelerated aging, particularly in immune and hematologic systems."
+    "description": "Senior individuals (65+ yrs) with decelerated aging (-14 years average gap). Organs appear younger than chronological age."
   },
   {
     "id": 3,
-    "name": "Balanced Seniors",
+    "name": "Moderate Acceleration",
     "percentage": 34.0,
-    "description": "Senior individuals (60+ yrs) aging at near-expected rates, with minor deceleration in some systems."
+    "description": "Middle-aged individuals (40-50 yrs) with slight accelerated aging (+1.7 years average gap) across multiple systems."
   }
 ]
