@@ -1,26 +1,20 @@
 [
   {
-    "id": 0,
-    "name": "Healthy Elderly",
-    "percentage": 17.0,
-    "description": "Older individuals (70+ yrs) with decelerated aging across all organ systems. Biological age younger than chronological age."
-  },
-  {
     "id": 1,
     "name": "Accelerated Young",
-    "percentage": 25.0,
+    "percentage": 47.0,
     "description": "Young individuals (20-30 yrs) showing premature aging across multiple organs. Requires early intervention."
   },
   {
     "id": 2,
     "name": "Moderate Acceleration",
-    "percentage": 30.0,
+    "percentage": 15.0,
     "description": "Middle-aged individuals (40-50 yrs) with moderate accelerated aging, particularly in immune and hematologic systems."
   },
   {
     "id": 3,
     "name": "Balanced Seniors",
-    "percentage": 27.0,
+    "percentage": 39.0,
     "description": "Senior individuals (60+ yrs) aging at near-expected rates, with minor deceleration in some systems."
   }
 ]

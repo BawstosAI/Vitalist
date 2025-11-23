@@ -2,36 +2,36 @@
   {
     "organ": "Liver",
     "mae_linear": 13.82,
-    "mae_nonlinear": 12.56,
-    "improvement_pct": 9.1,
-    "r2": 0.32
+    "mae_nonlinear": 12.63,
+    "improvement_pct": 8.6,
+    "r2": 0.31
   },
   {
     "organ": "Kidney",
     "mae_linear": 14.35,
-    "mae_nonlinear": 13.56,
-    "improvement_pct": 5.5,
-    "r2": 0.2
+    "mae_nonlinear": 13.7,
+    "improvement_pct": 4.5,
+    "r2": 0.19
   },
   {
     "organ": "Cardio-Metabolic",
-    "mae_linear": 13.04,
-    "mae_nonlinear": 10.84,
-    "improvement_pct": 16.8,
-    "r2": 0.44
+    "mae_linear": 13.05,
+    "mae_nonlinear": 11.03,
+    "improvement_pct": 15.4,
+    "r2": 0.42
   },
   {
     "organ": "Immune",
-    "mae_linear": 15.48,
-    "mae_nonlinear": 15.27,
-    "improvement_pct": 1.4,
-    "r2": 0.06
+    "mae_linear": 15.49,
+    "mae_nonlinear": 15.42,
+    "improvement_pct": 0.5,
+    "r2": 0.05
   },
   {
     "organ": "Hematologic",
-    "mae_linear": 14.78,
-    "mae_nonlinear": 14.96,
-    "improvement_pct": -1.3,
-    "r2": 0.08
+    "mae_linear": 14.79,
+    "mae_nonlinear": 15.46,
+    "improvement_pct": -4.5,
+    "r2": 0.02
   }
 ]

@@ -32,7 +32,15 @@
       "Bash(git branch:*)",
       "Bash(git merge:*)",
       "Bash(git checkout:*)",
-      "Bash(jupyter kernelspec:*)"
+      "Bash(jupyter kernelspec:*)",
+      "Bash(for organ in liver kidney cardio_metabolic immune hematologic)",
+      "Bash(do if [ -f \"models/$organ/best_model_gb.pkl\" ])",
+      "Bash(then cp \"models/$organ/best_model_gb.pkl\" \"models/$organ/hist_gb_model.pkl\")",
+      "Bash(fi)",
+      "Bash(if [ -f \"models/$organ/best_model_linear.pkl\" ])",
+      "Bash(then cp \"models/$organ/best_model_linear.pkl\" \"models/$organ/linear_model.pkl\")",
+      "Bash(done)",
+      "Bash(powershell -Command:*)"
     ],
     "deny": [],
     "ask": []
