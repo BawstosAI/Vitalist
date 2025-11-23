@@ -24,7 +24,9 @@
       "Bash(powershell -Command \"Get-Content ''frontend\\longevity---organ-aging-analysis---vitalist\\public\\data\\metrics_summary.json''\")",
       "Bash(npm run dev:*)",
       "Bash(timeout /t 5)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "Bash(verification_results.txt)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
