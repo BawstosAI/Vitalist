@@ -72,10 +72,6 @@ Thumbs.db
 # Project-specific
 # ================
 
-# Trained models (can be large)
-models/*
-!models/.gitkeep
-
 # Logs
 *.log
 logs/
